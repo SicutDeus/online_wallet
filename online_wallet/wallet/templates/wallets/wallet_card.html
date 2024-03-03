@@ -1,0 +1,18 @@
+<li>{{wallet.balance}} {{wallet.currency}}
+    {% if not is_list %}
+        {% if user.is_authenticated and wallet.owner.id == user.id %}
+    <a href="{% url "wallets:wallet_transfer" wallet.owner.id wallet.id %}"> Перевести </a>
+        {% endif %}
+    {% endif %}
+    <ul>
+        {% for operation in operations %}
+        <li>
+            {% if operation.from_wallet == wallet %}
+                - {{operation.balance}} {{ operation.currency }} (to {{operation.to_wallet.owner}})
+            {% else %}
+                + {{operation.balance}} {{ operation.currency }} (from {{operation.from_wallet.owner}})
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</li>

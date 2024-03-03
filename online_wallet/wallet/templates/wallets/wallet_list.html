@@ -1,0 +1,17 @@
+{% extends 'wallets/base.html' %}
+{% block content %}
+<h1>Кошельки пользователя {{owner.username}}</h1>
+<h3><a href="{% url "wallets:user_list" %}"> Все пользователи</a></h3>
+<ul>
+{% for wallet in wallets %}
+    <a href="{% url "wallets:wallet_detail" wallet.owner.id wallet.id %}"> {% include "wallets/wallet_card.html" with is_list=True %}</a>
+{% empty %}
+    <li>Нет доступных кошельков.</li>
+{% endfor %}
+    <br/>
+    </br>
+    {% if user.is_authenticated and owner.id == user.id %}
+        <p><a href="{% url "wallets:wallet_create" owner.id %}"> Создать кошелёк </a></p>
+    {% endif %}
+</ul>
+{% endblock %}

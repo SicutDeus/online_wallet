@@ -1,0 +1,11 @@
+{% extends 'wallets/base.html' %}
+{% block content %}
+<h1>Users</h1>
+<ul>
+{% for user in users %}
+    <p><a href="{% url "wallets:wallets_list" user.id%}"> {{user.username}} </a> </p>
+{% empty %}
+    <li>Нет доступных кошельков.</li>
+{% endfor %}
+</ul>
+{% endblock %}
